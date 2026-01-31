@@ -4,6 +4,7 @@ const api = axios.create({
   baseURL: "https://79e66ea0060e.ngrok-free.app/api",
   headers: {
     "Content-Type": "application/json",
+    "ngrok-skip-browser-warning": "true",
   },
 });
 
