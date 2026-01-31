@@ -33,7 +33,13 @@ export default function AdminDashboard() {
   const fetchBookings = async () => {
     try {
       const res = await api.get("/bookings");
-      setBookings(res.data);
+      if (Array.isArray(res.data)) {
+        setBookings(res.data);
+      } else {
+        console.error("Unexpected API response:", res.data);
+        setBookings([]);
+        toast.error("Received invalid data from server.");
+      }
     } catch (error) {
       console.error(error);
       toast.error("Failed to fetch bookings.");
