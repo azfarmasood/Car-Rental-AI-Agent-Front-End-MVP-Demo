@@ -98,8 +98,9 @@ export default function ChatInterface() {
   };
 
   const handleVerificationSuccess = () => {
-    // Notify Agent
-    const successMsg = "Identity verification completed successfully.";
+    // Notify Agent with explicit instruction to finalize booking
+    const successMsg =
+      "Documents uploaded and verified successfully. Please proceed to finalize my booking now and provide the booking ID.";
     setMessages((prev) => [...prev, { role: "user", content: successMsg }]);
     // Trigger agent to proceed
     api
