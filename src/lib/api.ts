@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://f02b731c697d.ngrok-free.app/api",
+  baseURL: "https://asger-autos-backend-agent.onrender.com/api",
   headers: {
     "Content-Type": "application/json",
     "ngrok-skip-browser-warning": "true",
