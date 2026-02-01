@@ -78,14 +78,14 @@ export default function ChatInterface() {
         { role: "model", content: responseText },
       ]);
 
-      // Check for tool calls or specific keywords if backend doesn't explicitly flag them in a separate field.
-      // Ideally backend instructions should say "TRIGGER_VERIFICATION" or similar.
-      // But based on our current logic, the agent just asks the user.
-      // We need a way to detect when to open the modal.
-      // Let's look for a specific keyword or if the agent says "please verify your identity".
+      // Check for keywords that indicate document upload is needed
+      const lowerResponse = responseText.toLowerCase();
       if (
-        responseText.toLowerCase().includes("please verify your identity") ||
-        responseText.toLowerCase().includes("upload your cnic")
+        lowerResponse.includes("verify your identity") ||
+        lowerResponse.includes("upload") ||
+        lowerResponse.includes("cnic") ||
+        lowerResponse.includes("selfie") ||
+        lowerResponse.includes("documents")
       ) {
         setIsVerificationOpen(true);
       }
@@ -196,9 +196,27 @@ export default function ChatInterface() {
       {/* Input */}
       <div className="p-4 bg-background border-t">
         <div className="flex gap-2">
-          {/* <Button variant="ghost" size="icon" title="Upload File (Coming Soon)">
-            <Paperclip className="w-5 h-5" />
-          </Button> */}
+          <Button
+            variant="ghost"
+            size="icon"
+            title="Upload Documents"
+            onClick={() => setIsVerificationOpen(true)}
+            disabled={!sessionId}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48" />
+            </svg>
+          </Button>
           <Input
             placeholder={
               sessionId
